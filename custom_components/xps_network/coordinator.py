@@ -43,11 +43,11 @@ class XpsNetworkCoordinator(DataUpdateCoordinator):
             )
         except XpsAuthError as err:
             raise UpdateFailed(
-                "XPS Network login was rejected - check the username/password in the "
-                "integration options"
+                f"XPS Network login was rejected - check the username/password in the "
+                f"integration options ({err})"
             ) from err
         except XpsApiError as err:
-            raise UpdateFailed(str(err)) from err
+            raise UpdateFailed(f"XPS Network API error: {err}") from err
 
         athletes = {member["id"]: member for member in members if member.get("id")}
         lookahead_cutoff = dt_util.utcnow() + timedelta(days=SCHEDULE_LOOKAHEAD_DAYS)

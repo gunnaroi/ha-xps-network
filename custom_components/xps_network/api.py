@@ -148,9 +148,15 @@ class XpsApiClient:
 
         if body.get("errors"):
             errors = body["errors"]
-            if any("session" in str(e).lower() or "auth" in str(e).lower() for e in errors):
+            _LOGGER.error("XPS Network GraphQL error for %s: %s", operation_name, errors)
+            if resp.status == 401 or any(
+                "not authenticated" in str(e).lower()
+                or "invalid session" in str(e).lower()
+                or "session expired" in str(e).lower()
+                for e in errors
+            ):
                 raise XpsAuthError(str(errors))
-            raise XpsApiError(str(errors))
+            raise XpsApiError(f"{operation_name}: {errors}")
         return body["data"]
 
     async def async_login(self) -> str:
