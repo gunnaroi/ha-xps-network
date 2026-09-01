@@ -76,17 +76,18 @@ query agenda($sessionId: ID, $from: Long, $first: Int, $timezone: String) {
   agenda(sessionId: $sessionId, from: $from, first: $first, timezone: $timezone) {
     edges {
       node {
-        practices {
+        __typename
+        ... on Practice {
 """
     + FRAGMENT_SESSION_FIELDS
     + """
         }
-        games {
+        ... on Game {
 """
     + FRAGMENT_SESSION_FIELDS
     + """
         }
-        events {
+        ... on Event {
 """
     + FRAGMENT_SESSION_FIELDS
     + """
@@ -216,11 +217,11 @@ class XpsApiClient:
         sessions: list[dict[str, Any]] = []
         for edge in edges:
             node = edge.get("node") or {}
-            for session_type in ("practices", "games", "events"):
-                for item in node.get(session_type) or []:
-                    item = dict(item)
-                    item["session_type"] = session_type[:-1]
-                    sessions.append(item)
+            if not node.get("id"):
+                continue
+            node = dict(node)
+            node["session_type"] = (node.pop("__typename", None) or "session").lower()
+            sessions.append(node)
         return sessions
 
     async def async_set_attendance(
