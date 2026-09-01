@@ -1,0 +1,39 @@
+set_attendance:
+  name: Set attendance
+  description: Set an athlete's attendance status for an XPS Network session (practice/game/event).
+  fields:
+    athlete_id:
+      name: Athlete ID
+      description: The athlete's XPS Network id (see the device's sensor attributes).
+      required: true
+      selector:
+        text:
+    session_id:
+      name: Session ID
+      description: The XPS Network session id (see the calendar/sensor session_id attribute).
+      required: true
+      selector:
+        text:
+    status:
+      name: Status
+      description: Attendance status to set.
+      required: true
+      selector:
+        select:
+          options:
+            - label: Attending
+              value: "Attended"
+            - label: Sick
+              value: "Sick"
+            - label: Injured
+              value: "Injured"
+            - label: Other
+              value: "Other"
+            - label: No response
+              value: "Unknown"
+    comment:
+      name: Comment
+      description: Optional comment to attach to the response.
+      required: false
+      selector:
+        text:

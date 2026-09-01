@@ -1,0 +1,12 @@
+{
+  "domain": "xps_network",
+  "name": "XPS Network",
+  "codeowners": ["@gunnaroi"],
+  "config_flow": true,
+  "documentation": "https://github.com/gunnaroi/ha-xps-network",
+  "issue_tracker": "https://github.com/gunnaroi/ha-xps-network/issues",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "0.1.0"
+}

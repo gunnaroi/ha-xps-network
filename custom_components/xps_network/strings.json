@@ -1,0 +1,21 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect XPS Network",
+        "description": "Enter the username/email and password you use to log in at app.xpsnetwork.com.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Username or password was rejected by XPS Network.",
+      "cannot_connect": "Could not reach XPS Network."
+    },
+    "abort": {
+      "already_configured": "This XPS Network account is already configured."
+    }
+  }
+}
